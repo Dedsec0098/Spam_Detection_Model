@@ -1,4 +1,4 @@
-# 📧 Email/SMS Spam Classifier 🚫
+# 📧 Email/SMS Spam Classifier 
 
 A machine learning project that classifies emails and SMS messages as spam or not spam using Natural Language Processing (NLP) and various classification algorithms. 🤖✨
 
