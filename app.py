@@ -1,3 +1,4 @@
+import os
 import streamlit as st
 import pickle
 import string
@@ -5,12 +6,11 @@ from nltk.corpus import stopwords
 import nltk
 from nltk.stem.porter import PorterStemmer
 
-nltk.download('punkt')
-nltk.download('stopwords')
 ps = PorterStemmer()
 
 
-def transform_text(text):
+def transform_text(text: str) -> str:
+    """Lowercase, tokenize, remove non-alnum tokens, stopwords, punctuation, and apply stemming."""
     text = text.lower()
     text = nltk.word_tokenize(text)
 
@@ -34,23 +34,39 @@ def transform_text(text):
 
     return " ".join(y)
 
-tfidf = pickle.load(open('vectorizer.pkl','rb'))
-model = pickle.load(open('model.pkl','rb'))
+
+def load_pickle(path: str, name: str):
+    if not os.path.exists(path):
+        st.error(f"{name} not found at '{path}'. Make sure you've uploaded it to the repo root for the Space.")
+        st.stop()
+    try:
+        with open(path, 'rb') as f:
+            return pickle.load(f)
+    except Exception as e:
+        st.error(f"Failed to load {name} ('{path}'): {e}")
+        st.stop()
+
+
+tfidf = load_pickle('vectorizer.pkl', 'Vectorizer')
+model = load_pickle('model.pkl', 'Model')
 
 st.title("Email/SMS Spam Classifier")
 
 input_sms = st.text_area("Enter the message")
 
 if st.button('Predict'):
-
-    # 1. preprocess
-    transformed_sms = transform_text(input_sms)
-    # 2. vectorize
-    vector_input = tfidf.transform([transformed_sms])
-    # 3. predict
-    result = model.predict(vector_input)[0]
-    # 4. Display
-    if result == 1:
-        st.header("Spam")
+    if not input_sms or not input_sms.strip():
+        st.warning("Please type a message to classify.")
     else:
-        st.header("Not Spam")
+        # 1. preprocess
+        transformed_sms = transform_text(input_sms)
+        # 2. vectorize
+        vector_input = tfidf.transform([transformed_sms])
+        # 3. predict
+        result = model.predict(vector_input)[0]
+        # 4. Display
+        if int(result) == 1:
+            st.success("Prediction: Spam")
+        else:
+            st.success("Prediction: Not Spam")
+

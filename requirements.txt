@@ -1,5 +1,7 @@
 streamlit==1.28.0
 nltk==3.8.1
 scikit-learn>=1.4.0
-pandas
-numpy
+pandas>=1.5.0
+numpy>=1.25.0
+huggingface_hub>=0.17.0
+# Add or pin additional packages your app needs here (matplotlib, seaborn, etc.)

@@ -227,6 +227,35 @@ Run locally with:
 streamlit run app.py
 ```
 
+### Docker (Build and Run)
+You can run the app inside Docker — this is useful for consistent environments and for deploying to servers or CI.
+
+Build the Docker image locally (from the repository root):
+```bash
+docker build -t spam-detection-app:latest .
+```
+
+Run the container and map Streamlit's port 8501 to your host:
+```bash
+docker run --rm -p 8501:8501 -v "$PWD":/app spam-detection-app:latest
+```
+
+Or use docker-compose (recommended for development):
+```bash
+docker compose up --build
+```
+
+Notes:
+- The repository includes a `Dockerfile` and `docker-compose.yml` that install dependencies, run `setup.sh` to fetch NLTK data, and start Streamlit on port `8501`.
+- By default `.dockerignore` excludes `*.pkl` files so model artifacts are not copied into the Docker build context. If you want the image to contain `model.pkl` and `vectorizer.pkl`, remove those entries from `.dockerignore` and add the files to the repo (or use Git LFS).
+- If your model files are large, consider hosting them in a Hugging Face Model repo and modify `app.py` to download them at startup using `huggingface_hub` (the `requirements.txt` already includes `huggingface_hub`). For private model repos, store your HF token as a container environment variable and pass it via `docker run -e HF_TOKEN=...` or in `docker-compose.yml`.
+
+Example: run the container and pass a private HF token (if needed):
+```bash
+docker run --rm -p 8501:8501 -e HF_TOKEN="$HF_TOKEN" -v "$PWD":/app spam-detection-app:latest
+```
+
+
 ## 🚀 Future Improvements
 
 - Add more sophisticated preprocessing techniques 🔧
