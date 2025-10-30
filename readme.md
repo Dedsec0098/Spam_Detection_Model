@@ -3,7 +3,7 @@
 This is a machine learning project that classifies emails and SMS messages as spam or not spam using Natural Language Processing (NLP) where I have used Navie Based ( Multinomial Naive Bayes ) which assumes that all the word in a sentence does not have correlation, this may not be true in practical situations but when I tried this model it gave some really good scores of 97.10 % accuracy and a precison of 100 % after using several EDA ( Exploratory Data Analysis ) methods and feature engineering methods I broke the dataset into 80 % training and 20 % tesitng and then I was able to get usefull features to feed the model.
 
 ## Second Enhancement
-Further I used docket to containarize my model so that can use docket image and build my project locally and don't have to install all the dependencies. I also hosted this model on Huggingface which provided me smooth integration of model backend with streamlit frontend.
+Further I used docker to containarize my model so that can use docket image and build my project locally and don't have to install all the dependencies. I also hosted this model on Huggingface which provided me smooth integration of model backend with streamlit frontend.
 
 ## 👨‍💻 Author
 **Shrish Mishra**
