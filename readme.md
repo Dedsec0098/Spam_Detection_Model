@@ -166,62 +166,6 @@ Open [`Spam_detection.ipynb`](Spam_detection.ipynb) in Jupyter Notebook to: 🔬
 
 ## 🌐 Deployment
 
-### Deploying to Streamlit Community Cloud (Recommended) 🚀
-
-This app is ready to deploy on **Streamlit Community Cloud** for FREE! Follow these steps:
-
-#### Prerequisites ✅
-- GitHub account
-- Your code pushed to a GitHub repository (public or private)
-
-#### Deployment Steps 📝
-
-1. **Push your code to GitHub** 
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit - Spam Detection App"
-   git branch -M main
-   git remote add origin https://github.com/YOUR-USERNAME/spam-detection-model.git
-   git push -u origin main
-   ```
-
-2. **Go to Streamlit Community Cloud**
-   - Visit: [share.streamlit.io](https://share.streamlit.io)
-   - Sign in with your GitHub account
-
-3. **Deploy Your App** 🎉
-   - Click "New app"
-   - Select your repository: `spam-detection-model`
-   - Set main file path: `app.py`
-   - Click "Deploy!"
-
-4. **Wait for deployment** ⏱️
-   - First deployment takes 2-3 minutes
-   - Streamlit will automatically:
-     - Install all packages from `requirements.txt`
-     - Download NLTK data (via `setup.sh`)
-     - Load your model files (`model.pkl`, `vectorizer.pkl`)
-
-5. **Share your app!** 🎊
-   - You'll get a URL like: `https://your-app-name.streamlit.app`
-   - Share it with anyone!
-
-#### Important Files for Deployment 📦
-- `requirements.txt` - Python dependencies
-- `setup.sh` - NLTK data download script
-- `.streamlit/config.toml` - Streamlit configuration
-- `.gitignore` - Files to exclude from Git
-- `app.py` - Your Streamlit app
-- `model.pkl` - Trained model
-- `vectorizer.pkl` - TF-IDF vectorizer
-
-#### Troubleshooting 🔧
-- **NLTK errors?** The `setup.sh` file handles NLTK downloads automatically
-- **Model not found?** Make sure `model.pkl` and `vectorizer.pkl` are committed to Git
-- **Out of memory?** Streamlit free tier has 1GB RAM (should be enough for this model)
-
-### Alternative: Local Deployment 💻
 Run locally with:
 ```bash
 streamlit run app.py
